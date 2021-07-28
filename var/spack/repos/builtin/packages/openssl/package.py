@@ -78,7 +78,7 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
     variant('systemcerts', default=True, description='Use system certificates')
     variant('docs', default=False, description='Install docs and manpages')
     variant('shared', default=False, description="Build shared library version")
-    variant('dynamic', default=False, description="Link with MSVC's dynamic runtime library")
+    variant('staticmt', default=False, description="Build static version with static runtime libraries")
 
     depends_on('zlib')
 
@@ -153,14 +153,9 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
         # (e.g. gcc) will not accept them.
         filter_file(r'-arch x86_64', '', 'Makefile')
 
-        if spec.satisfies('+dynamic'):
-            # This variant only makes sense for Windows
-            if spec.satisfies('platform=windows'):
-                filter_file(r'MT', 'MD', 'makefile')
-            else:
-                tty.warn("Dynamic runtime builds are only available for "
-                         "Windows operating systems. Please disable "
-                         "+dynamic to suppress this warning.")
+        # This variant only makes sense for Windows
+        if spec.satisfies('platform=windows ~shared~staticmt'):
+           filter_file(r'MT', 'MD', 'makefile')
 
         if spec.satisfies('platform=windows'):
             nmake = Executable('nmake')
