@@ -1678,7 +1678,9 @@ def find_libraries(libraries, root, shared=True, recursive=False):
         raise TypeError(message)
 
     # Construct the right suffix for the library
-    if shared is True:
+    if sys.platform == 'win32':
+        suffix = 'lib'
+    elif shared is True:
         suffix = 'dylib' if sys.platform == 'darwin' else 'so'
     else:
         suffix = 'a'
