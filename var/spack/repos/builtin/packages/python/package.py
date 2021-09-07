@@ -6,6 +6,7 @@
 import os
 import platform
 import re
+import subprocess
 import sys
 
 import llnl.util.tty as tty
@@ -138,18 +139,18 @@ class Python(AutotoolsPackage):
             "(not PEP 394 compliant)")
 
     # Optional Python modules
-    variant('readline', default=True,  description='Build readline module')
+    variant('readline', default=(sys.platform!='win32'),  description='Build readline module')
     variant('ssl',      default=True,  description='Build ssl module')
     variant('sqlite3',  default=True,  description='Build sqlite3 module')
-    variant('dbm',      default=True,  description='Build dbm module')
+    variant('dbm',      default=(sys.platform!='win32'),  description='Build dbm module')
     variant('nis',      default=False, description='Build nis module')
     variant('zlib',     default=True,  description='Build zlib module')
     variant('bz2',      default=True,  description='Build bz2 module')
-    variant('lzma',     default=True,  description='Build lzma module')
-    variant('pyexpat',  default=True,  description='Build pyexpat module')
-    variant('ctypes',   default=True,  description='Build ctypes module')
+    variant('lzma',     default=(sys.platform!='win32'),  description='Build lzma module')
+    variant('pyexpat',  default=(sys.platform!='win32'),  description='Build pyexpat module')
+    variant('ctypes',   default=(sys.platform!='win32'),  description='Build ctypes module')
     variant('tkinter',  default=False, description='Build tkinter module')
-    variant('uuid',     default=True,  description='Build uuid module')
+    variant('uuid',     default=(sys.platform!='win32'),  description='Build uuid module')
     variant('tix',      default=False, description='Build Tix module')
 
     depends_on('pkgconfig@0.9.0:', type='build')
@@ -169,7 +170,7 @@ class Python(AutotoolsPackage):
     depends_on('gdbm', when='+dbm')  # alternatively ndbm or berkeley-db
     depends_on('libnsl', when='+nis')
     depends_on('zlib@1.1.3:', when='+zlib')
-    depends_on('bzip2', when='+bz2')
+    # depends_on('bzip2', when='+bz2')
     depends_on('xz', when='@3.3:+lzma')
     depends_on('expat', when='+pyexpat')
     depends_on('libffi', when='+ctypes')
@@ -1183,6 +1184,21 @@ class Python(AutotoolsPackage):
                 view.remove_file(src, dst)
             else:
                 os.remove(dst)
+
+    @property
+    def configure(self, spec, prefix):
+        if self.spec.satisfies(platform='windows'):
+            return
+        else:
+            super(Python, self).configure(spec, prefix)
+
+    @property
+    def build(self, spec, prefix):
+        if self.spec.satisfies(platform='windows'):
+            subprocess.run([os.path.join('PCbuild', 'build.bat'),
+                           "-e", "-d", "-p x64"])
+        else:
+            super(Python, self).build(spec, prefix)
 
     def test(self):
         # do not use self.command because we are also testing the run env
