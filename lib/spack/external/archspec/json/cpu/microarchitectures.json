@@ -1408,13 +1408,6 @@
             "flags": "-march={name} -mtune={name}"
           }
         ],
-        "apple-clang": [
-          {
-            "versions": "8.0:",
-	    "name": "znver1",  
-            "flags": "-march={name} -mtune={name}"
-          }
-        ],
         "aocc": [
           {
             "versions": "2.2:",
@@ -1475,6 +1468,13 @@
           {
             "versions": "9.0:",
             "name": "znver2",
+            "flags": "-march={name} -mtune={name}"
+          }
+        ],
+        "apple-clang": [
+          {
+            "versions": "8.0:",
+	    "name": "znver2",  
             "flags": "-march={name} -mtune={name}"
           }
         ],
