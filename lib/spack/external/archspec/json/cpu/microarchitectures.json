@@ -1408,6 +1408,13 @@
             "flags": "-march={name} -mtune={name}"
           }
         ],
+        "apple-clang": [
+          {
+            "versions": "10.0:",
+	    "name": "znver1",  
+            "flags": "-march={name} -mtune={name}"
+          }
+        ],
         "aocc": [
           {
             "versions": "2.2:",
@@ -1468,13 +1475,6 @@
           {
             "versions": "9.0:",
             "name": "znver2",
-            "flags": "-march={name} -mtune={name}"
-          }
-        ],
-        "apple-clang": [
-          {
-            "versions": "9.0:",
-	    "name": "znver2",  
             "flags": "-march={name} -mtune={name}"
           }
         ],
@@ -1541,13 +1541,6 @@
           {
             "versions": "12.0:",
             "name": "znver3",
-            "flags": "-march={name} -mtune={name}"
-          }
-        ],
-        "apple-clang": [
-          {
-            "versions": "10.0:",
-	    "name": "znver3",  
             "flags": "-march={name} -mtune={name}"
           }
         ],
