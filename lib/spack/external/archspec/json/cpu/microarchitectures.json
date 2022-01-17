@@ -1473,7 +1473,7 @@
         ],
         "apple-clang": [
           {
-            "versions": "8.0:",
+            "versions": "9.0:",
 	    "name": "znver2",  
             "flags": "-march={name} -mtune={name}"
           }
@@ -1541,6 +1541,13 @@
           {
             "versions": "12.0:",
             "name": "znver3",
+            "flags": "-march={name} -mtune={name}"
+          }
+        ],
+        "apple-clang": [
+          {
+            "versions": "10.0:",
+	    "name": "znver3",  
             "flags": "-march={name} -mtune={name}"
           }
         ],
