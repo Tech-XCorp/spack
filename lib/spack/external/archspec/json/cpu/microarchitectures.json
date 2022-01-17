@@ -1411,6 +1411,7 @@
         "apple-clang": [
           {
             "versions": "8.0:",
+	    "name": "znver1",  
             "flags": "-march={name} -mtune={name}"
           }
         ],
