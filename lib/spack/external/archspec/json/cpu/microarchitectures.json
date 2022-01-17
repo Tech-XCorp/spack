@@ -1408,6 +1408,12 @@
             "flags": "-march={name} -mtune={name}"
           }
         ],
+        "apple-clang": [
+          {
+            "versions": "8.0:",
+            "flags": "-march={name} -mtune={name}"
+          }
+        ],
         "aocc": [
           {
             "versions": "2.2:",
