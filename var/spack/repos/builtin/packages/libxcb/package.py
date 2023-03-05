@@ -24,6 +24,7 @@ class Libxcb(AutotoolsPackage):
     depends_on("libpthread-stubs")
     depends_on("libxau@0.99.2:")
     depends_on("libxdmcp")
+    depends_on("py-lxml")
 
     # libxcb 1.X requires xcb-proto >= 1.X
     depends_on("xcb-proto")
